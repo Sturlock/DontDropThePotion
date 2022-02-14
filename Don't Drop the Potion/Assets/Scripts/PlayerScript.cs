@@ -8,10 +8,13 @@ public class PlayerScript : MonoBehaviour
     private bool groundedPlayer;
     public float playerSpeed = 10f;
     public Vector3 playerVelocity = Vector3.zero;
+    private Quaternion _facing;
     // Start is called before the first frame update
     void Start()
     {
         characterController = GetComponent<CharacterController>();
+        playerVelocity = characterController.velocity;
+        _facing = transform.rotation;
     }
 
     // Update is called once per frame
@@ -30,6 +33,8 @@ public class PlayerScript : MonoBehaviour
         Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         characterController.Move(move * Time.deltaTime * playerSpeed);
 
-        transform.rotation = Quaternion.LookRotation(move);
+        var rotation = Quaternion.LookRotation(move.normalized);
+        rotation *= _facing;
+        transform.rotation = rotation;
     }
 }
