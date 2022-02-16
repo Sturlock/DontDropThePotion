@@ -5,10 +5,12 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     CharacterController characterController;
+    public LayerMask layerMask;
     private bool groundedPlayer;
     public float playerSpeed = 10f;
     public Vector3 playerVelocity = Vector3.zero;
     private Quaternion _facing;
+    public bool interact = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -25,16 +27,25 @@ public class PlayerScript : MonoBehaviour
         {
             playerVelocity.y = 0f;
         }
-        if (characterController.isGrounded)
+        if (!characterController.isGrounded)
         {
-            Debug.Log("Grounded");
+            playerVelocity.y = -9.81f;
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
+        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), playerVelocity.y, Input.GetAxis("Vertical"));
         characterController.Move(move * Time.deltaTime * playerSpeed);
 
-        var rotation = Quaternion.LookRotation(move.normalized);
-        rotation *= _facing;
-        transform.rotation = rotation;
+        if (characterController.velocity != Vector3.zero)
+        {
+            Vector3 moveRot = new Vector3(move.x, 0, move.z);
+            var rotation = Quaternion.LookRotation(moveRot);
+            rotation *= _facing;
+            transform.rotation = rotation;
+        }
+        if (Input.GetKey(KeyCode.E))
+        {
+            interact = true;
+        }
+        else interact = false;
     }
 }

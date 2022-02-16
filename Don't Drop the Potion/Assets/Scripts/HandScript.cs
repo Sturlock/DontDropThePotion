@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class HandScript : MonoBehaviour
 {
-    public GameObject hand = null;
+    public GameObject handPotion = null;
+    public GameObject handIngredient = null;
     public GameObject potion = null;
 
     private bool isHolding;
@@ -37,7 +38,7 @@ public class HandScript : MonoBehaviour
             if (isHolding && Input.GetKey(KeyCode.G))
             {
                 potion.SetActive(false);
-                hand.SetActive(true);
+                handPotion.SetActive(true);
             }
             if (isHolding && !Input.GetKey(KeyCode.G))
             {
@@ -48,10 +49,23 @@ public class HandScript : MonoBehaviour
         }
         if (failed)
         {
-            Rigidbody rb = hand.GetComponent<Rigidbody>();
+            Rigidbody rb = handPotion.GetComponent<Rigidbody>();
             rb.useGravity = true;
             rb.isKinematic = false;
-            hand.transform.parent = null;
+            handPotion.transform.parent = null;
+        }
+    }
+
+    public void FindIngredientType(IngredientScript ingredient, IngredientType type)
+    {
+        switch (type)
+        { 
+            case IngredientType.type1:
+                Debug.Log("Word");
+                    break;
+            case IngredientType.type2:
+                Debug.Log("Word");
+                break;
         }
     }
 }
