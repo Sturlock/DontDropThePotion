@@ -7,34 +7,39 @@ public class HandScript : MonoBehaviour
 
     public GameObject handPotion = null;
     public GameObject[] handIngredients;
+    private DetectionRayCast detection;
 
-    public bool isHolding;
+    [SerializeField] private bool isHolding;
     private bool failed = false;
 
     private void Start()
     {
+        detection = GetComponent<DetectionRayCast>();
     }
 
     private void Update()
     {
-        
-
-        if (isHolding && Input.GetKey(KeyCode.G))
+        if (!failed)
         {
-            //potion.SetActive(false);
-            handPotion.SetActive(true);
+            if (!isHolding && Input.GetKey(KeyCode.G))
+            {
+                GameObject target;
+                target = detection.inSightTarget;
+                PotionScript potion = target.GetComponent<PotionScript>();
+                handPotion = target;
+                potion.PickUp(this);
+                isHolding = true;
+            }
+
+            if (isHolding && !Input.GetKey(KeyCode.G))
+            {
+                failed = true;
+                isHolding = false;
+            }
         }
-        if (isHolding && !Input.GetKey(KeyCode.G))
+        else
         {
-            failed = true;
-        };
-
-        if (failed)
-        {
-            Rigidbody rb = handPotion.GetComponent<Rigidbody>();
-            rb.useGravity = true;
-            rb.isKinematic = false;
-            handPotion.transform.parent = null;
+            handPotion.GetComponent<PotionScript>().DropIt(this);
         }
     }
 

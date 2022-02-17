@@ -4,23 +4,25 @@ using UnityEngine;
 
 public class PotionScript : MonoBehaviour
 {
-    
-   public void PickUp(HandScript handScript, bool holding)
+    Rigidbody body;
+    private void Awake()
     {
-        if (Physics.CheckSphere(transform.transform.position, 2))
-        {
-            if (!handScript.isHolding && Input.GetKey(KeyCode.G))
-            {
-                handScript.isHolding = true;
-            }
-        }
+        body = GetComponent<Rigidbody>();
+    }
+    public void PickUp(HandScript handScript)
+    {
+        transform.parent = handScript.hand1.transform;
+        transform.position = handScript.hand1.transform.position;
+        
+        body.isKinematic = true;
+        body.useGravity = false;
+    }
 
-        if (!holding)
-        {
-            handScript.handPotion = gameObject;
-
-            gameObject.transform.parent = handScript.gameObject.transform;
-        }
+    public void DropIt(HandScript handScript)
+    {
+        body.useGravity = true;
+        body.isKinematic = false;
+        transform.parent = null;
     }
 
 }

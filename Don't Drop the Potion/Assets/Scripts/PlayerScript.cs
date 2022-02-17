@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     CharacterController characterController;
-    public LayerMask layerMask;
+
     private bool groundedPlayer;
     public float playerSpeed = 10f;
     public Vector3 playerVelocity = Vector3.zero;
