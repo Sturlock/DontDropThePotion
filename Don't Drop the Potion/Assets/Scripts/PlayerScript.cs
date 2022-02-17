@@ -32,7 +32,7 @@ public class PlayerScript : MonoBehaviour
             playerVelocity.y = -9.81f;
         }
 
-        Vector3 move = new Vector3(Input.GetAxis("Horizontal"), playerVelocity.y, Input.GetAxis("Vertical"));
+        Vector3 move = new Vector3(Input.GetAxis("Vertical"), playerVelocity.y, -Input.GetAxis("Horizontal"));
         characterController.Move(move * Time.deltaTime * playerSpeed);
 
         if (characterController.velocity != Vector3.zero)
