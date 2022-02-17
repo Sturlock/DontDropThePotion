@@ -21,7 +21,7 @@ public class HandScript : MonoBehaviour
 
         if (isHolding && Input.GetKey(KeyCode.G))
         {
-            potion.SetActive(false);
+            //potion.SetActive(false);
             handPotion.SetActive(true);
         }
         if (isHolding && !Input.GetKey(KeyCode.G))
