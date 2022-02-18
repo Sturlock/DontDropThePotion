@@ -14,7 +14,8 @@ public class StationScript : MonoBehaviour
 
     [SerializeField]
     private float requiredHoldTime;
-
+    [SerializeField]
+    CanvasGroup canvas;
     [SerializeField]
     private Image fillImage;
 
@@ -22,6 +23,7 @@ public class StationScript : MonoBehaviour
     {
         if (hasIngredient)
         {
+            canvas.alpha = 1;
             stationDownTimer += Time.deltaTime;
             if (stationDownTimer >= requiredHoldTime)
             {
@@ -38,6 +40,7 @@ public class StationScript : MonoBehaviour
     {
         if (hasIngredient)
         {
+            canvas.alpha = 1;
             stationDownTimer += Time.deltaTime;
             if (stationDownTimer >= requiredHoldTime)
             {
@@ -53,8 +56,9 @@ public class StationScript : MonoBehaviour
     public bool Chop(HandScript hand, bool hasIngredient)
     {
         if (hasIngredient)
-        { 
-                stationDownTimer += Time.deltaTime;
+        {
+            canvas.alpha = 1;
+            stationDownTimer += Time.deltaTime;
                 if (stationDownTimer >= requiredHoldTime)
                 {
                     Reset(hand);
@@ -69,6 +73,7 @@ public class StationScript : MonoBehaviour
     private void Reset(HandScript hand)
     {
         stationDownTimer = 0;
+        canvas.alpha = 0;
         if (fillImage != null)
             fillImage.fillAmount = stationDownTimer / requiredHoldTime;
         
