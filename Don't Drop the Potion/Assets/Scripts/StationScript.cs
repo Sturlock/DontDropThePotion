@@ -1,57 +1,76 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum StationType
 {
-    type1,type2,type3
+    burner, boil, chop
 }
 
 public class StationScript : MonoBehaviour
 {
     public StationType type;
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    private float stationDownTimer;
 
-    // Update is called once per frame
-    void Update()
+    [SerializeField]
+    private float requiredHoldTime;
+
+    [SerializeField]
+    private Image fillImage;
+
+    public bool Burner(HandScript hand, bool hasIngredient)
     {
-        switch (type)
+        if (hasIngredient)
         {
-            case StationType.type1:
-                Chop();
-                break;
-
-            case StationType.type2:
-                Boil();
-                break;
-
-            case StationType.type3:
-                Burner();
-                break;
-
-            default:
-                return;
+            stationDownTimer += Time.deltaTime;
+            if (stationDownTimer >= requiredHoldTime)
+            {
+                Reset(hand);
+                return true;
+            }
+            if (fillImage != null)
+                fillImage.fillAmount = stationDownTimer / requiredHoldTime;
         }
-
+        return false;
     }
 
-    private void Burner()
+    public bool Boil(HandScript hand, bool hasIngredient)
     {
-        throw new NotImplementedException();
+        if (hasIngredient)
+        {
+            stationDownTimer += Time.deltaTime;
+            if (stationDownTimer >= requiredHoldTime)
+            {
+                Reset(hand);
+                return true;
+            }
+            if (fillImage != null)
+                fillImage.fillAmount = stationDownTimer / requiredHoldTime;
+        }
+        return false;
     }
 
-    private void Boil()
+    public bool Chop(HandScript hand, bool hasIngredient)
     {
-        throw new NotImplementedException();
+        if (hasIngredient)
+        { 
+                stationDownTimer += Time.deltaTime;
+                if (stationDownTimer >= requiredHoldTime)
+                {
+                    Reset(hand);
+                return true;
+                }
+                if (fillImage != null)
+                    fillImage.fillAmount = stationDownTimer / requiredHoldTime;
+        }
+        return false;
     }
 
-    private void Chop()
+    private void Reset(HandScript hand)
     {
-        throw new NotImplementedException();
+        stationDownTimer = 0;
+        if (fillImage != null)
+            fillImage.fillAmount = stationDownTimer / requiredHoldTime;
+        Destroy(hand.handIngredient);
     }
 }

@@ -6,7 +6,7 @@ public class HandScript : MonoBehaviour
     public GameObject hand2;
 
     public GameObject handPotion = null;
-    public GameObject handIngredients;
+    public GameObject handIngredient;
     private DetectionRayCast detection;
     public LayerMask layerHolding;
 
@@ -14,6 +14,7 @@ public class HandScript : MonoBehaviour
     private LayerMask potionLayer;
     private bool isHoldingIngredient;
     private LayerMask ingredientLayer;
+    private IngredientType? ingredientType;
     private bool failed = false;
 
     private void Start()
@@ -51,20 +52,72 @@ public class HandScript : MonoBehaviour
                     ingredientLayer = target.layer;
                     target.layer = layerHolding;
                     IngredientScript ingredient = target.GetComponent<IngredientScript>();
-                    handIngredients = target;
+                    handIngredient = target;
                     ingredient.PickUp(this);
                     isHoldingIngredient = true;
                 }
                 else if (isHoldingIngredient && Input.GetKeyDown(KeyCode.E))
                 {
                     isHoldingIngredient = false;
-                    handIngredients.layer = ingredientLayer;
-                    handIngredients.GetComponent<IngredientScript>().DropIt(this);
+                    handIngredient.layer = ingredientLayer;
+                    handIngredient.GetComponent<IngredientScript>().DropIt(this);
+                }
+
+                if (detection.inSightTarget != null)
+                {
+                    bool done = false;
+                    if (detection.inSightTarget.GetComponent<StationScript>())
+                    {
+                        bool hasIngred;
+                        
+
+                        if (Input.GetKey(KeyCode.F))
+                        {
+                            StationScript station = detection.inSightTarget.GetComponent<StationScript>();
+                            IngredientScript ingredient = handIngredient.GetComponent<IngredientScript>();
+                            switch (ingredientType)
+                            {
+                                case IngredientType.Mushroom:
+                                    if (station.type == StationType.chop)
+                                    {
+                                        isHoldingIngredient = false;
+                                           hasIngred = ingredient.StationIt(this);
+                                       done = station.Chop(this, hasIngred);
+                                        
+                                    }
+                                    break;
+
+                                case IngredientType.EyeBall:
+                                    if (station.type == StationType.boil)
+                                    {
+                                        isHoldingIngredient = false;
+                                        hasIngred = ingredient.StationIt(this);
+                                        done = station.Boil(this, hasIngred);
+
+                                    }
+                                    break;
+
+                                case IngredientType.Feather:
+                                    if (station.type == StationType.burner)
+                                    {
+                                        isHoldingIngredient = false;
+                                        hasIngred = ingredient.StationIt(this);
+                                        done = station.Burner(this, hasIngred);
+                                        
+                                    }
+                                    break;
+
+                                default:
+                                    return;
+                            }
+                        }
+                    }
                 }
             }
         }
         else
         {
+            if(handPotion != null)
             handPotion.GetComponent<PotionScript>().DropIt(this);
         }
     }
@@ -73,19 +126,23 @@ public class HandScript : MonoBehaviour
     {
         switch (type)
         {
-            case IngredientType.type1:
-                Debug.Log("Word1");
+            case IngredientType.Mushroom:
+                Debug.Log("Mushroom");
+                ingredientType = type;
                 break;
 
-            case IngredientType.type2:
-                Debug.Log("Word2");
+            case IngredientType.EyeBall:
+                Debug.Log("EyeBall");
+                ingredientType = type;
                 break;
 
-            case IngredientType.type3:
-                Debug.Log("Word3");
+            case IngredientType.Feather:
+                Debug.Log("Feather");
+                ingredientType = type;
                 break;
 
             default:
+                ingredientType = null;
                 return;
         }
     }

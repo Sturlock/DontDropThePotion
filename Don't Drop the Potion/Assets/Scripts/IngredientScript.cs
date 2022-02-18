@@ -40,4 +40,14 @@ public class IngredientScript : MonoBehaviour
         transform.parent = null;
         handScript.handPotion = null;
     }
+
+    public bool StationIt(HandScript handScript)
+    {
+        if (handScript.handIngredient != null)
+        {
+            return true;
+        }
+        else
+            return true;
+    }
 }
