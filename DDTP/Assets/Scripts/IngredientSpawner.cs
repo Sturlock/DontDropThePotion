@@ -4,37 +4,41 @@ using UnityEngine;
 
 public class IngredientSpawner : MonoBehaviour
 {
+    public Animation ani;
     public HandScript hand;
-    public GameObject ingreident1;
-    public GameObject ingreident2;
-    public GameObject ingreident3;
+    public GameObject ingreident;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        hand = GetComponent<HandScript>();
-
-    }
-
+    bool made;
     // Update is called once per frame
     void Update()
     {
-        if(hand.handIngredient != null)
+        if (hand.handIngredient != null && !made)
         {
             switch (hand.handIngredient.GetComponent<IngredientScript>().type)
             {
-                case IngredientType.Mushroom:
-                    Instantiate(ingreident1, transform.position, transform.rotation);
+                case IngredientType.Feather:
+                    Instantiate(ingreident, transform.position, transform.rotation);
+                    ani.Play();
+                    made = true;
                     break;
                 case IngredientType.EyeBall:
-                    Instantiate(ingreident2, transform.position, transform.rotation);
+                    Instantiate(ingreident, transform.position, transform.rotation);
+                    ani.Play();
+                    made = true;
                     break;
-                case IngredientType.Feather:
-                    Instantiate(ingreident3, transform.position, transform.rotation);
+                case IngredientType.Mushroom:
+                    Instantiate(ingreident, transform.position, transform.rotation);
+                    ani.Play();
+                    made = true;
                     break;
                 default:
                     return;
             }
+        }
+        else
+        {
+            
+            return;
         }
     }
 }
