@@ -1,0 +1,51 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Ingredients&Potions
+  m_Shader: {fileID: -6465566751694194690, guid: 0a79ccd2c4a43654c9d28d42ba3fa7ea, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_6a6750fdb77e41ab82fb2ad846cc93f4:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_8a9fdb2fd7174e6f92307bb79a1a82bb:
+        m_Texture: {fileID: 2800000, guid: 627cd0396ca474446a9498be17551fdf, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_2043911cf6f040608b5a62a5532cd92f: 4.6
+    - Vector1_778b8ca9a00b4b78bba36376f03167ff: 0.119
+    - Vector1_f74911c199794c7bbb0ec5d3bf47a6ef: 0.874
+    m_Colors:
+    - Color_4800d07f1b2a48a9992049249e4d918e: {r: 1, g: 0.637491, b: 0, a: 0}
+    - Color_6d158ec3facf426ca93ee6370ca084dd: {r: 1, g: 1, b: 1, a: 0}
+    - Color_c5d27c2744d8493880a18ae66bf287f1: {r: 1, g: 0.6526397, b: 0, a: 0}
+    - Color_f996a0a379da4483bdc184a1411f8ea8: {r: 1, g: 0.7541196, b: 0.5330188, a: 0}
+  m_BuildTextureStacks: []
