@@ -6,10 +6,14 @@ public class HandScript : MonoBehaviour
     public GameObject hand2;
 
     public GameObject handPotion = null;
-    public GameObject[] handIngredients;
+    public GameObject handIngredients;
     private DetectionRayCast detection;
+    public LayerMask layerHolding;
 
-    [SerializeField] private bool isHolding;
+    private bool isHoldingPotion;
+    private LayerMask potionLayer;
+    private bool isHoldingIngredient;
+    private LayerMask ingredientLayer;
     private bool failed = false;
 
     private void Start()
@@ -21,20 +25,42 @@ public class HandScript : MonoBehaviour
     {
         if (!failed)
         {
-            if (!isHolding && Input.GetKey(KeyCode.G))
+            if (!isHoldingPotion && Input.GetKey(KeyCode.G))
             {
                 GameObject target;
                 target = detection.inSightTarget;
+                potionLayer = target.layer;
+                target.layer = layerHolding;
                 PotionScript potion = target.GetComponent<PotionScript>();
                 handPotion = target;
                 potion.PickUp(this);
-                isHolding = true;
+                isHoldingPotion = true;
             }
-
-            if (isHolding && !Input.GetKey(KeyCode.G))
+            else if (isHoldingPotion && !Input.GetKey(KeyCode.G))
             {
                 failed = true;
-                isHolding = false;
+                isHoldingPotion = false;
+            }
+
+            if (isHoldingPotion)
+            {
+                if (!isHoldingIngredient && Input.GetKeyDown(KeyCode.E))
+                {
+                    GameObject target;
+                    target = detection.inSightTarget;
+                    ingredientLayer = target.layer;
+                    target.layer = layerHolding;
+                    IngredientScript ingredient = target.GetComponent<IngredientScript>();
+                    handIngredients = target;
+                    ingredient.PickUp(this);
+                    isHoldingIngredient = true;
+                }
+                else if (isHoldingIngredient && Input.GetKeyDown(KeyCode.E))
+                {
+                    isHoldingIngredient = false;
+                    handIngredients.layer = ingredientLayer;
+                    handIngredients.GetComponent<IngredientScript>().DropIt(this);
+                }
             }
         }
         else
@@ -43,17 +69,24 @@ public class HandScript : MonoBehaviour
         }
     }
 
-    public void FindIngredientType(IngredientScript ingredient, IngredientType type)
+    public void FindIngredientType(IngredientType type)
     {
         switch (type)
         {
             case IngredientType.type1:
-                Debug.Log("Word");
+                Debug.Log("Word1");
                 break;
 
             case IngredientType.type2:
-                Debug.Log("Word");
+                Debug.Log("Word2");
                 break;
+
+            case IngredientType.type3:
+                Debug.Log("Word3");
+                break;
+
+            default:
+                return;
         }
     }
 }

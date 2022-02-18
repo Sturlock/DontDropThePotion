@@ -5,12 +5,12 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     CharacterController characterController;
-
+    public Animator animator;
     private bool groundedPlayer;
     public float playerSpeed = 10f;
     public Vector3 playerVelocity = Vector3.zero;
     private Quaternion _facing;
-    public bool interact = false;
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -37,15 +37,15 @@ public class PlayerScript : MonoBehaviour
 
         if (characterController.velocity != Vector3.zero)
         {
+            
+
             Vector3 moveRot = new Vector3(move.x, 0, move.z);
             var rotation = Quaternion.LookRotation(moveRot);
             rotation *= _facing;
             transform.rotation = rotation;
+            animator.SetBool("walk", true);
         }
-        if (Input.GetKey(KeyCode.E))
-        {
-            interact = true;
-        }
-        else interact = false;
+        else animator.SetBool("walk", false);
+        
     }
 }

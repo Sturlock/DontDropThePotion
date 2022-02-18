@@ -23,6 +23,7 @@ public class PotionScript : MonoBehaviour
         body.useGravity = true;
         body.isKinematic = false;
         transform.parent = null;
+        handScript.handPotion = null;
     }
 
 }

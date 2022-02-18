@@ -1,60 +1,43 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public enum IngredientType
 {
-    type1, type2, type3, type4
+    Feather, EyeBall, Mushroom
 }
 
-
-
-public class IngredientScript : MonoBehaviour, IInteract
+public class IngredientScript : MonoBehaviour
 {
+    public Rigidbody body;
     public MeshRenderer renderer;
     public Material material;
     public IngredientType type;
 
-    public GameObject target;
-
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         renderer = GetComponent<MeshRenderer>();
-        if(material != renderer.material)
+        if (material != renderer.material)
         {
-            renderer.material = material;
-        } 
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-    public void Action()
-    {
-        throw new System.NotImplementedException();
-    }
-
-    public void Interact()
-    {
-        HandScript handScript = target.GetComponent<HandScript>();
-        if(handScript != null)
-        {
-            handScript.FindIngredientType(this, type);
+            material = renderer.material;
         }
+        body = GetComponent<Rigidbody>();
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void PickUp(HandScript handScript)
     {
-        if (other.CompareTag("Player"))
-        {
-            target = other.gameObject;
-            if (target.GetComponent<PlayerScript>().interact)
-            {
-                Interact();
-            }
-        }
+        handScript.FindIngredientType(type);
+        transform.parent = handScript.hand2.transform;
+        transform.position = handScript.hand2.transform.position;
+        transform.rotation = handScript.hand2.transform.rotation;
+        body.isKinematic = true;
+        body.useGravity = false;
+    }
+
+    public void DropIt(HandScript handScript)
+    {
+        body.useGravity = true;
+        body.isKinematic = false;
+        transform.parent = null;
+        handScript.handPotion = null;
     }
 }
