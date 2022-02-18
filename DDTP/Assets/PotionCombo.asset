@@ -14,17 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_recipes:
   - m_ingredients: 0100000002000000
-    comboImage: {fileID: 6558520640574633753, guid: 6e7ae7c72c62a0c4ba86cdda759e5efc, type: 3}
+    comboImage: {fileID: 21300000, guid: e6081ad4eceba4944800f0a4023354d1, type: 3}
+    sliderImage: {fileID: 21300000, guid: 5529e16a13ac4a7459cba5ed2ddd5c3a, type: 3}
     m_basePointsMultiplier: 1
     m_additionalPoints: 0
     m_weight: 6
   - m_ingredients: 0000000002000000
-    comboImage: {fileID: 1620807523631077474, guid: 270c5adc5af022049b629ddd817d8238, type: 3}
+    comboImage: {fileID: 21300000, guid: 58148ef46b23ca346b45358752af9e71, type: 3}
+    sliderImage: {fileID: 21300000, guid: f6a15c1728ffb4647a13a25e0aa2e6e0, type: 3}
     m_basePointsMultiplier: 1
     m_additionalPoints: 20
     m_weight: 4
   - m_ingredients: 000000000100000002000000
-    comboImage: {fileID: 1903785430883934475, guid: 3afb8a85f42e2994c82c8c7a81c152d1, type: 3}
+    comboImage: {fileID: 21300000, guid: 1c22dc63cebac1a42b664ccfb2436940, type: 3}
+    sliderImage: {fileID: 21300000, guid: d0d64a9bb421e4948a8f4d359ec3f526, type: 3}
     m_basePointsMultiplier: 2
     m_additionalPoints: 50
     m_weight: 2
