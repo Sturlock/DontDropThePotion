@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 [CreateAssetMenu(fileName = "PotionCombo",menuName = "DontDrop")]
 public class PotionCombo : ScriptableObject
 {
@@ -11,7 +12,8 @@ public class PotionCombo : ScriptableObject
     public class Entry : IWeight
     {
         public List<IngredientType> m_ingredients;
-        
+        public Image comboImage;
+        public Image sliderImage;
         public int m_basePointsMultiplier = 1;
         public int m_additionalPoints;
         

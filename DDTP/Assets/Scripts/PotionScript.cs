@@ -36,6 +36,7 @@ public class PotionScript : MonoBehaviour
                 entry.Remove(ingredient);
             }
         }
+        
     }
 
 }

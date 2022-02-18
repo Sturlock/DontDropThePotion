@@ -21,7 +21,10 @@ public class StationScript : MonoBehaviour
 
     [SerializeField]
     private CanvasGroup canvas;
-
+    private void Awake()
+    {
+        canvas.alpha = 0;
+    }
     public bool Burner(HandScript hand, bool hasIngredient)
     {
         if (hasIngredient)

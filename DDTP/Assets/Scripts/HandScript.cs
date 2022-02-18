@@ -78,47 +78,49 @@ public class HandScript : MonoBehaviour
                         if (!done && Input.GetKey(KeyCode.F))
                         {
                             StationScript station = detection.inSightTarget.GetComponent<StationScript>();
-                            IngredientScript ingredient = handIngredient.GetComponent<IngredientScript>();
-                            switch (ingredientType)
+                            if(handIngredient !=null)
                             {
-                                case IngredientType.Mushroom:
-                                    if (station.type == StationType.chop)
-                                    {
-                                        isHoldingIngredient = false;
-                                        hasIngred = ingredient.StationIt(this);
-                                        done = station.Chop(this, hasIngred);
-                                    }
-                                    break;
+                                IngredientScript ingredient = handIngredient.GetComponent<IngredientScript>();
+                                switch (ingredientType)
+                                {
+                                    case IngredientType.Mushroom:
+                                        if (station.type == StationType.chop)
+                                        {
+                                            isHoldingIngredient = false;
+                                            hasIngred = ingredient.StationIt(this);
+                                            done = station.Chop(this, hasIngred);
+                                        }
+                                        break;
 
-                                case IngredientType.EyeBall:
-                                    if (station.type == StationType.boil)
-                                    {
-                                        isHoldingIngredient = false;
-                                        hasIngred = ingredient.StationIt(this);
-                                        done = station.Boil(this, hasIngred);
-                                    }
-                                    break;
+                                    case IngredientType.EyeBall:
+                                        if (station.type == StationType.boil)
+                                        {
+                                            isHoldingIngredient = false;
+                                            hasIngred = ingredient.StationIt(this);
+                                            done = station.Boil(this, hasIngred);
+                                        }
+                                        break;
 
-                                case IngredientType.Feather:
-                                    if (station.type == StationType.burner)
-                                    {
-                                        isHoldingIngredient = false;
-                                        hasIngred = ingredient.StationIt(this);
-                                        done = station.Burner(this, hasIngred);
-                                    }
-                                    break;
+                                    case IngredientType.Feather:
+                                        if (station.type == StationType.burner)
+                                        {
+                                            isHoldingIngredient = false;
+                                            hasIngred = ingredient.StationIt(this);
+                                            done = station.Burner(this, hasIngred);
+                                        }
+                                        break;
 
-                                default:
-                                    break;
+                                    default:
+                                        break;
+                                }
                             }
                         }
                         if (done)
                         {
-                            done = false;
                             PotionScript potion = handPotion.GetComponent<PotionScript>();
                             potion.CheckIngredient(handIngredient.GetComponent<IngredientScript>().type);
-                            Destroy(handIngredient);
-
+                            handIngredient.SetActive(false);
+                            
                         }
                     }
 
@@ -131,6 +133,15 @@ public class HandScript : MonoBehaviour
             if (handPotion != null)
                 handPotion.GetComponent<PotionScript>().DropIt(this);
         }
+        if(handIngredient != null)
+        {
+            if (!handIngredient.activeSelf && done)
+            {
+                Destroy(handIngredient);
+                done = false;
+            }
+        }
+        
     }
 
     public void FindIngredientType(IngredientType type)

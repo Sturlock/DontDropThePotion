@@ -14,14 +14,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_recipes:
   - m_ingredients: 0100000002000000
+    comboImage: {fileID: 6558520640574633753, guid: 6e7ae7c72c62a0c4ba86cdda759e5efc, type: 3}
     m_basePointsMultiplier: 1
     m_additionalPoints: 0
     m_weight: 6
   - m_ingredients: 0000000002000000
+    comboImage: {fileID: 1620807523631077474, guid: 270c5adc5af022049b629ddd817d8238, type: 3}
     m_basePointsMultiplier: 1
     m_additionalPoints: 20
     m_weight: 4
   - m_ingredients: 000000000100000002000000
+    comboImage: {fileID: 1903785430883934475, guid: 3afb8a85f42e2994c82c8c7a81c152d1, type: 3}
     m_basePointsMultiplier: 2
     m_additionalPoints: 50
     m_weight: 2
