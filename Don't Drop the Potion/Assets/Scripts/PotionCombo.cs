@@ -10,7 +10,7 @@ public class PotionCombo : ScriptableObject
     [Serializable]
     public class Entry : IWeight
     {
-        public IngredientType[] ingredients;
+        public List<IngredientType> m_ingredients;
         
         public int m_basePointsMultiplier = 1;
         public int m_additionalPoints;

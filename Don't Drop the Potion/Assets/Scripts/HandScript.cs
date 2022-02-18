@@ -16,6 +16,7 @@ public class HandScript : MonoBehaviour
     private LayerMask ingredientLayer;
     private IngredientType? ingredientType;
     private bool failed = false;
+    bool done= false;
 
     private void Start()
     {
@@ -30,12 +31,16 @@ public class HandScript : MonoBehaviour
             {
                 GameObject target;
                 target = detection.inSightTarget;
-                potionLayer = target.layer;
-                target.layer = layerHolding;
-                PotionScript potion = target.GetComponent<PotionScript>();
-                handPotion = target;
-                potion.PickUp(this);
-                isHoldingPotion = true;
+                if(target != null)
+                {
+                    potionLayer = target.layer;
+                    target.layer = layerHolding;
+                    PotionScript potion = target.GetComponent<PotionScript>();
+                    handPotion = target;
+                    potion.PickUp(this);
+                    isHoldingPotion = true;
+                }
+                
             }
             else if (isHoldingPotion && !Input.GetKey(KeyCode.G))
             {
@@ -65,13 +70,12 @@ public class HandScript : MonoBehaviour
 
                 if (detection.inSightTarget != null)
                 {
-                    bool done = false;
+                    
                     if (detection.inSightTarget.GetComponent<StationScript>())
                     {
                         bool hasIngred;
-                        
 
-                        if (Input.GetKey(KeyCode.F))
+                        if (!done && Input.GetKey(KeyCode.F))
                         {
                             StationScript station = detection.inSightTarget.GetComponent<StationScript>();
                             IngredientScript ingredient = handIngredient.GetComponent<IngredientScript>();
@@ -81,9 +85,8 @@ public class HandScript : MonoBehaviour
                                     if (station.type == StationType.chop)
                                     {
                                         isHoldingIngredient = false;
-                                           hasIngred = ingredient.StationIt(this);
-                                       done = station.Chop(this, hasIngred);
-                                        
+                                        hasIngred = ingredient.StationIt(this);
+                                        done = station.Chop(this, hasIngred);
                                     }
                                     break;
 
@@ -93,7 +96,6 @@ public class HandScript : MonoBehaviour
                                         isHoldingIngredient = false;
                                         hasIngred = ingredient.StationIt(this);
                                         done = station.Boil(this, hasIngred);
-
                                     }
                                     break;
 
@@ -103,22 +105,31 @@ public class HandScript : MonoBehaviour
                                         isHoldingIngredient = false;
                                         hasIngred = ingredient.StationIt(this);
                                         done = station.Burner(this, hasIngred);
-                                        
                                     }
                                     break;
 
                                 default:
-                                    return;
+                                    break;
                             }
                         }
+                        if (done)
+                        {
+                            done = false;
+                            PotionScript potion = handPotion.GetComponent<PotionScript>();
+                            potion.CheckIngredient(handIngredient.GetComponent<IngredientScript>().type);
+                            Destroy(handIngredient);
+
+                        }
                     }
+
+                    
                 }
             }
         }
         else
         {
-            if(handPotion != null)
-            handPotion.GetComponent<PotionScript>().DropIt(this);
+            if (handPotion != null)
+                handPotion.GetComponent<PotionScript>().DropIt(this);
         }
     }
 

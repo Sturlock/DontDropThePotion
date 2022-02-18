@@ -71,6 +71,6 @@ public class StationScript : MonoBehaviour
         stationDownTimer = 0;
         if (fillImage != null)
             fillImage.fillAmount = stationDownTimer / requiredHoldTime;
-        Destroy(hand.handIngredient);
+        
     }
 }

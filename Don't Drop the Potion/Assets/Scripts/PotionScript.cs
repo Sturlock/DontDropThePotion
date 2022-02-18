@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PotionScript : MonoBehaviour
 {
+    public List<IngredientType> entry;
     Rigidbody body;
     private void Awake()
     {
@@ -24,6 +25,17 @@ public class PotionScript : MonoBehaviour
         body.isKinematic = false;
         transform.parent = null;
         handScript.handPotion = null;
+    }
+
+    public void CheckIngredient(IngredientType type)
+    {
+        foreach(IngredientType ingredient in entry)
+        {
+            if(type == ingredient)
+            {
+                entry.Remove(ingredient);
+            }
+        }
     }
 
 }
