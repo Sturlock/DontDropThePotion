@@ -4,11 +4,18 @@ using UnityEngine;
 
 public class IngredientSpawner : MonoBehaviour
 {
-    public Animation ani;
+    public Animator ani;
     public HandScript hand;
     public GameObject ingreident;
+    public GameObject puff;
 
     bool made;
+
+    private void Start()
+    {
+        ani = puff.GetComponent<Animator>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -18,17 +25,17 @@ public class IngredientSpawner : MonoBehaviour
             {
                 case IngredientType.Feather:
                     Instantiate(ingreident, transform.position, transform.rotation);
-                    ani.Play();
+                    ani.SetTrigger("newIn");
                     made = true;
                     break;
                 case IngredientType.EyeBall:
                     Instantiate(ingreident, transform.position, transform.rotation);
-                    ani.Play();
+                    ani.SetTrigger("newIn");
                     made = true;
                     break;
                 case IngredientType.Mushroom:
                     Instantiate(ingreident, transform.position, transform.rotation);
-                    ani.Play();
+                    ani.SetTrigger("newIn");
                     made = true;
                     break;
                 default:

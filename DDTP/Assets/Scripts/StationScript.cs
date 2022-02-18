@@ -9,6 +9,7 @@ public enum StationType
 public class StationScript : MonoBehaviour
 {
     public StationType type;
+
     [SerializeField]
     private float stationDownTimer;
 
@@ -18,10 +19,14 @@ public class StationScript : MonoBehaviour
     [SerializeField]
     private Image fillImage;
 
+    [SerializeField]
+    private CanvasGroup canvas;
+
     public bool Burner(HandScript hand, bool hasIngredient)
     {
         if (hasIngredient)
         {
+            canvas.alpha = 1;
             stationDownTimer += Time.deltaTime;
             if (stationDownTimer >= requiredHoldTime)
             {
@@ -38,6 +43,7 @@ public class StationScript : MonoBehaviour
     {
         if (hasIngredient)
         {
+            canvas.alpha = 1;
             stationDownTimer += Time.deltaTime;
             if (stationDownTimer >= requiredHoldTime)
             {
@@ -53,24 +59,25 @@ public class StationScript : MonoBehaviour
     public bool Chop(HandScript hand, bool hasIngredient)
     {
         if (hasIngredient)
-        { 
-                stationDownTimer += Time.deltaTime;
-                if (stationDownTimer >= requiredHoldTime)
-                {
-                    Reset(hand);
+        {
+            canvas.alpha = 1;
+            stationDownTimer += Time.deltaTime;
+            if (stationDownTimer >= requiredHoldTime)
+            {
+                Reset(hand);
                 return true;
-                }
-                if (fillImage != null)
-                    fillImage.fillAmount = stationDownTimer / requiredHoldTime;
+            }
+            if (fillImage != null)
+                fillImage.fillAmount = stationDownTimer / requiredHoldTime;
         }
         return false;
     }
 
     private void Reset(HandScript hand)
     {
+        canvas.alpha = 0;
         stationDownTimer = 0;
         if (fillImage != null)
             fillImage.fillAmount = stationDownTimer / requiredHoldTime;
-        
     }
 }
