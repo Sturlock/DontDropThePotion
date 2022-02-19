@@ -16,11 +16,11 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 0.8
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.21
+    m_Value: 0.7
     min: 0
   scatter:
     m_OverrideState: 1
@@ -88,7 +88,7 @@ MonoBehaviour:
   rounded:
     m_OverrideState: 0
     m_Value: 0
---- !u!114 &-3086436373955770458
+--- !u!114 &-4368464622516952202
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,59 +97,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c01700fd266d6914ababb731e09af2eb, type: 3}
-  m_Name: DepthOfField
+  m_Script: {fileID: 11500000, guid: 70afe9e12c7a7ed47911bb608a23a8ff, type: 3}
+  m_Name: SplitToning
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   m_AdvancedMode: 0
-  mode:
+  shadows:
     m_OverrideState: 1
-    m_Value: 2
-  gaussianStart:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  gaussianEnd:
-    m_OverrideState: 0
-    m_Value: 0
-    min: 0
-  gaussianMaxRadius:
+    m_Value: {r: 0.254717, g: 0.254717, b: 0.254717, a: 1}
+    hdr: 0
+    showAlpha: 0
+    showEyeDropper: 1
+  highlights:
     m_OverrideState: 1
-    m_Value: 1.5
-    min: 0.5
-    max: 1.5
-  highQualitySampling:
-    m_OverrideState: 0
-    m_Value: 0
-  focusDistance:
+    m_Value: {r: 0.8773585, g: 0.8773585, b: 0.8773585, a: 1}
+    hdr: 0
+    showAlpha: 0
+    showEyeDropper: 1
+  balance:
     m_OverrideState: 1
-    m_Value: 0.9
-    min: 0.1
-  aperture:
-    m_OverrideState: 1
-    m_Value: 1
-    min: 1
-    max: 32
-  focalLength:
-    m_OverrideState: 1
-    m_Value: 57
-    min: 1
-    max: 300
-  bladeCount:
-    m_OverrideState: 1
-    m_Value: 3
-    min: 3
-    max: 9
-  bladeCurvature:
-    m_OverrideState: 1
-    m_Value: 0.47
-    min: 0
-    max: 1
-  bladeRotation:
-    m_OverrideState: 1
-    m_Value: -103
-    min: -180
-    max: 180
+    m_Value: -4.9
+    min: -100
+    max: 100
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -166,7 +135,7 @@ MonoBehaviour:
   - {fileID: -7893295128165547882}
   - {fileID: -7011558710299706105}
   - {fileID: 3209975239614917636}
-  - {fileID: -3086436373955770458}
+  - {fileID: -4368464622516952202}
 --- !u!114 &3209975239614917636
 MonoBehaviour:
   m_ObjectHideFlags: 3
