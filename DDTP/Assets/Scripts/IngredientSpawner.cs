@@ -4,16 +4,25 @@ using UnityEngine;
 
 public class IngredientSpawner : MonoBehaviour
 {
-    public Animator ani;
+    
     public HandScript hand;
-    public GameObject ingreident;
-    public GameObject puff;
+    public GameObject[] puff;
+    public Animator[] ani;
+
+    public GameObject[] objects; 
 
     bool made;
 
-    private void Start()
+    private void Awake()
     {
-        ani = puff.GetComponent<Animator>();
+        for(int i = 0; i < puff.Length; i++)
+        {
+            if(puff[i] != null)
+            {
+                ani[i] = puff[i].GetComponent<Animator>();
+            }
+        }
+        
     }
 
     // Update is called once per frame
@@ -21,21 +30,25 @@ public class IngredientSpawner : MonoBehaviour
     {
         if (hand.handIngredient != null && !made)
         {
+            GameObject game;
             switch (hand.handIngredient.GetComponent<IngredientScript>().type)
             {
                 case IngredientType.Feather:
-                    Instantiate(ingreident, transform.position, transform.rotation);
-                    ani.SetTrigger("newIn");
+                    game = Instantiate(hand.handIngredient, objects[0].transform.localPosition, transform.rotation);
+                    ani[0].SetTrigger("newIn");
+                    game.transform.localScale = Vector3.one;
                     made = true;
                     break;
                 case IngredientType.EyeBall:
-                    Instantiate(ingreident, transform.position, transform.rotation);
-                    ani.SetTrigger("newIn");
+                    game = Instantiate(hand.handIngredient, objects[1].transform.localPosition, transform.rotation);
+                    ani[1].SetTrigger("newIn");
                     made = true;
+                    game.transform.localScale = Vector3.one;
                     break;
                 case IngredientType.Mushroom:
-                    Instantiate(ingreident, transform.position, transform.rotation);
-                    ani.SetTrigger("newIn");
+                    game = Instantiate(hand.handIngredient, objects[2].transform.localPosition, transform.rotation);
+                    ani[2].SetTrigger("newIn");
+                    game.transform.localScale = Vector3.one;
                     made = true;
                     break;
                 default:

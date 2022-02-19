@@ -14,6 +14,7 @@ public class PotionCombo : ScriptableObject
         public List<IngredientType> m_ingredients;
         public Sprite comboImage;
         public Sprite sliderImage;
+
         public int m_basePointsMultiplier = 1;
         public int m_additionalPoints;
         
