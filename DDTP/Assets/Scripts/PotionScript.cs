@@ -4,7 +4,11 @@ using UnityEngine;
 
 public class PotionScript : MonoBehaviour
 {
-    public List<IngredientType> entry;
+    public bool start = false;
+    public List<IngredientType> entry = new List<IngredientType>();
+    public List<IngredientType> tempEntry = new List<IngredientType>();
+    public Mesh meshFinishedProduct;
+    public Material matFinishedProduct;
     Rigidbody body;
     private void Awake()
     {
@@ -14,7 +18,7 @@ public class PotionScript : MonoBehaviour
     {
         transform.parent = handScript.hand1.transform;
         transform.position = handScript.hand1.transform.position;
-        
+        tempEntry = new List<IngredientType>(entry);
         body.isKinematic = true;
         body.useGravity = false;
     }
@@ -29,14 +33,22 @@ public class PotionScript : MonoBehaviour
 
     public void CheckIngredient(IngredientType type)
     {
-        foreach(IngredientType ingredient in entry)
+        foreach(IngredientType ingredient in tempEntry)
         {
             if(type == ingredient)
             {
-                entry.Remove(ingredient);
+                tempEntry.Remove(ingredient);
+                break;
             }
         }
-        
     }
-
+    
+    public void PotionFinished()
+    {
+        if(tempEntry.Count == 0)
+        {
+                gameObject.GetComponent<MeshFilter>().mesh = meshFinishedProduct;
+                gameObject.GetComponent<Renderer>().material = matFinishedProduct;
+        }
+    }
 }

@@ -1,4 +1,5 @@
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
 
 public enum IngredientType
 {
@@ -21,6 +22,11 @@ public class IngredientScript : MonoBehaviour
             material = renderer.material;
         }
         body = GetComponent<Rigidbody>();
+        
+    }
+    private void Start()
+    {
+        gameObject.layer = 7;
     }
 
     public void PickUp(HandScript handScript)

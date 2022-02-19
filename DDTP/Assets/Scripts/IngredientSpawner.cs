@@ -1,34 +1,32 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class IngredientSpawner : MonoBehaviour
 {
-    
-    public HandScript hand;
     public GameObject[] puff;
     public Animator[] ani;
 
-    public GameObject[] objects; 
+    public GameObject[] objects;
 
-    bool made;
+    private bool made;
+    
 
     private void Awake()
     {
-        for(int i = 0; i < puff.Length; i++)
+        for (int i = 0; i < puff.Length; i++)
         {
-            if(puff[i] != null)
+            if (puff[i] != null)
             {
                 ani[i] = puff[i].GetComponent<Animator>();
             }
         }
         
+
     }
 
     // Update is called once per frame
-    void Update()
+    public void NewIngredient(HandScript hand)
     {
-        if (hand.handIngredient != null && !made)
+        if (hand.handIngredient != null)
         {
             GameObject game;
             switch (hand.handIngredient.GetComponent<IngredientScript>().type)
@@ -37,28 +35,26 @@ public class IngredientSpawner : MonoBehaviour
                     game = Instantiate(hand.handIngredient, objects[0].transform.localPosition, transform.rotation);
                     ani[0].SetTrigger("newIn");
                     game.transform.localScale = Vector3.one;
-                    made = true;
+
                     break;
+
                 case IngredientType.EyeBall:
                     game = Instantiate(hand.handIngredient, objects[1].transform.localPosition, transform.rotation);
                     ani[1].SetTrigger("newIn");
-                    made = true;
+
                     game.transform.localScale = Vector3.one;
                     break;
+
                 case IngredientType.Mushroom:
                     game = Instantiate(hand.handIngredient, objects[2].transform.localPosition, transform.rotation);
                     ani[2].SetTrigger("newIn");
                     game.transform.localScale = Vector3.one;
-                    made = true;
+
                     break;
+
                 default:
                     return;
             }
-        }
-        else
-        {
-            
-            return;
         }
     }
 }

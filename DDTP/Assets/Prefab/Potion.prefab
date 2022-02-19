@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 664849663511525375}
   m_Layer: 6
   m_Name: Potion
-  m_TagString: Untagged
+  m_TagString: Potion
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -126,3 +126,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d0fcad0323902b14fb7a881a09d2cdcd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  start: 0
+  entry: 
+  meshFinishedProduct: {fileID: 0}
+  matFinishedProduct: {fileID: 0}

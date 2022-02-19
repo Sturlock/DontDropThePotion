@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,42 +10,50 @@ public class GameManager : MonoBehaviour
     public int score;
     private int baseScoreValue = 100;
 
-    [SerializeField]
-    private List<PotionCombo.Entry> currentEntrys = new List<PotionCombo.Entry>();
+    public PotionCombo.Entry currentEntry = null;
 
     [SerializeField]
-    private List<GameObject> imagePotions = new List<GameObject>();
+    private GameObject imagePotion;
+    [SerializeField]
+    private Image fillImage;
+    private bool completedPotion = true;
+    private bool slotFull;
 
-    private bool Slot1, Slot2, Slot3, Slot4;
+    private int e;
 
     //Timers
+    [SerializeField]
     private float gameDownTimer;
 
-    private float requiredHoldTime = 20;
+    private float requiredHoldTime = 0;
 
-    // Start is called before the first frame update
+    public bool CompletedPotion()
+    {
+        imagePotion.SetActive(false);
+        imagePotion.GetComponent<Image>().sprite = null;
+        Image fillImage = null;
+        completedPotion = true;
+        currentEntry = null;
+        return true;
+    }
+
     private void Start()
     {
-        int i = Random.Range(1, 10);
-        foreach (PotionCombo.Entry entry in potionCombo.m_recipes)
-        {
-            if (i >= entry.m_weight)
-            {
-                //Add to List
-                currentEntrys.Add(entry);
-                Slot1 = SlotSelection(entry);
-                Debug.Log("ADDED");
-                break;
-            }
-        }
+        gameDownTimer = requiredHoldTime;
+    }
+
+    private void Update()
+    {
+        gameDownTimer += Time.deltaTime;
+        if (fillImage != null)
+            fillImage.fillAmount = gameDownTimer / requiredHoldTime;
     }
 
     // Update is called once per frame
-    private void Update()
+    public PotionCombo.Entry FindEntry()
     {
-        if (currentEntrys.Count == 3)
+        if (completedPotion || currentEntry == null)
         {
-            gameDownTimer += Time.deltaTime;
             if (gameDownTimer >= requiredHoldTime)
             {
                 int i = Random.Range(1, 10);
@@ -55,19 +62,29 @@ public class GameManager : MonoBehaviour
                     if (i >= entry.m_weight)
                     {
                         //Add to List
-                        currentEntrys.Add(entry);
-                        SlotSelection(entry);
+                        currentEntry = entry;
+                        slotFull = SlotSelection(entry);
+                        SetUpPotion(entry);
                         Debug.Log("ADDED");
-                        break;
+                        Reset();
+                        return entry;
                     }
                 }
-                Reset();
+                
             }
         }
-        if (currentEntrys.Count <= 1)
+        return null;
+    }
+
+    public void SetUpPotion(PotionCombo.Entry entry)
+    {
+        PotionScript potion = handScript.handPotion.GetComponent<PotionScript>();
+        if (handScript.handPotion != null && !potion.start)
         {
-            if (handScript.handPotion != null)
-                handScript.handPotion.GetComponent<PotionScript>().entry = currentEntrys[0].m_ingredients;
+            potion.entry = entry.m_ingredients;
+            potion.meshFinishedProduct = entry.mesh;
+            potion.matFinishedProduct = entry.material;
+            potion.start = true;
         }
     }
 
@@ -76,49 +93,45 @@ public class GameManager : MonoBehaviour
         if (entry == potionCombo.m_recipes[0])
         {
             //for (int x = 0; x < imagePotions.Count; i++)
-            foreach (GameObject x in imagePotions)
+
             {
-                Image image = x.GetComponent<Image>();
-                Image imageSlider = x.transform.GetChild(0).GetComponent<Image>();
+                Image image = imagePotion.GetComponent<Image>();
+                Image imageSlider = imagePotion.transform.GetChild(0).GetComponent<Image>();
+                fillImage = imageSlider;
                 if (image.sprite == null)
                 {
                     image.sprite = entry.comboImage;
                     imageSlider.sprite = entry.sliderImage;
-                    x.gameObject.SetActive(true);
-                    
+                    imageSlider.fillMethod = Image.FillMethod.Horizontal;
+                    imageSlider.fillOrigin = 1;
+                    imagePotion.gameObject.SetActive(true);
                 }
             }
             return true;
         }
         else if (entry == potionCombo.m_recipes[1])
         {
-            foreach (GameObject x in imagePotions)
+            Image image = imagePotion.GetComponent<Image>();
+            Image imageSlider = imagePotion.transform.GetChild(0).GetComponent<Image>();
+            fillImage = imageSlider;
+            if (image.sprite == null)
             {
-                Image image = x.GetComponent<Image>();
-                Image imageSlider = x.transform.GetChild(0).GetComponent<Image>();
-                if (image.sprite == null)
-                {
-                    image.sprite = entry.comboImage;
-                    imageSlider.sprite = entry.sliderImage;
-                    x.gameObject.SetActive(true);
-                    
-                }
+                image.sprite = entry.comboImage;
+                imageSlider.sprite = entry.sliderImage;
+                imagePotion.gameObject.SetActive(true);
             }
             return true;
         }
         else if (entry == potionCombo.m_recipes[2])
         {
-            foreach (GameObject x in imagePotions)
+            Image image = imagePotion.GetComponent<Image>();
+            Image imageSlider = imagePotion.transform.GetChild(0).GetComponent<Image>();
+            fillImage = imageSlider;
+            if (image.sprite == null)
             {
-                Image image = x.GetComponent<Image>();
-                Image imageSlider = x.transform.GetChild(0).GetComponent<Image>();
-                if (image.sprite == null)
-                {
-                    image.sprite = entry.comboImage;
-                    imageSlider.sprite = entry.sliderImage;
-                    x.gameObject.SetActive(true);
-                    
-                }
+                image.sprite = entry.comboImage;
+                imageSlider.sprite = entry.sliderImage;
+                imagePotion.gameObject.SetActive(true);
             }
             return true;
         }
@@ -131,5 +144,10 @@ public class GameManager : MonoBehaviour
     private void Reset()
     {
         gameDownTimer = 0;
+        completedPotion = false;
+    }
+
+    public void GameOver()
+    {
     }
 }

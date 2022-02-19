@@ -13,21 +13,27 @@ MonoBehaviour:
   m_Name: PotionCombo
   m_EditorClassIdentifier: 
   m_recipes:
-  - m_ingredients: 0100000002000000
+  - m_ingredients: 0200000001000000
     comboImage: {fileID: 21300000, guid: e6081ad4eceba4944800f0a4023354d1, type: 3}
     sliderImage: {fileID: 21300000, guid: 5529e16a13ac4a7459cba5ed2ddd5c3a, type: 3}
+    mesh: {fileID: 7292735152454676809, guid: d7be3b763a3fa764583c122ba96a6206, type: 3}
+    material: {fileID: 2100000, guid: 64ecbc7af5fdfc94d9e05ee88529a171, type: 2}
     m_basePointsMultiplier: 1
     m_additionalPoints: 0
     m_weight: 6
   - m_ingredients: 0000000002000000
     comboImage: {fileID: 21300000, guid: 58148ef46b23ca346b45358752af9e71, type: 3}
     sliderImage: {fileID: 21300000, guid: f6a15c1728ffb4647a13a25e0aa2e6e0, type: 3}
+    mesh: {fileID: 120644227677480923, guid: cbb4fa3d65de4f046a9a426e9256996f, type: 3}
+    material: {fileID: 2100000, guid: 64ecbc7af5fdfc94d9e05ee88529a171, type: 2}
     m_basePointsMultiplier: 1
     m_additionalPoints: 20
     m_weight: 4
   - m_ingredients: 000000000100000002000000
     comboImage: {fileID: 21300000, guid: 1c22dc63cebac1a42b664ccfb2436940, type: 3}
     sliderImage: {fileID: 21300000, guid: d0d64a9bb421e4948a8f4d359ec3f526, type: 3}
+    mesh: {fileID: -1783509406654417999, guid: 36702d598a24d9442b0df82f17949d68, type: 3}
+    material: {fileID: 2100000, guid: 64ecbc7af5fdfc94d9e05ee88529a171, type: 2}
     m_basePointsMultiplier: 2
     m_additionalPoints: 50
     m_weight: 2
