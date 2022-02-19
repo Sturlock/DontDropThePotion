@@ -10,6 +10,8 @@ public class PotionScript : MonoBehaviour
     public Mesh meshFinishedProduct;
     public Material matFinishedProduct;
     Rigidbody body;
+
+    public GameObject explosion;
     private void Awake()
     {
         body = GetComponent<Rigidbody>();
@@ -29,6 +31,9 @@ public class PotionScript : MonoBehaviour
         body.isKinematic = false;
         transform.parent = null;
         handScript.handPotion = null;
+
+        explosion.SetActive(true);
+
     }
 
     public void CheckIngredient(IngredientType type)
