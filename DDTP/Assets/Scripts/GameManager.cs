@@ -56,7 +56,7 @@ public class GameManager : MonoBehaviour
         {
             if (gameDownTimer >= requiredHoldTime)
             {
-                int i = Random.Range(1, 10);
+                int i = Random.Range(0, 10);
                 foreach (PotionCombo.Entry entry in potionCombo.m_recipes)
                 {
                     if (i >= entry.m_weight)

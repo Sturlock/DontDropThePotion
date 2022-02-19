@@ -21,6 +21,7 @@ public class StationScript : MonoBehaviour
 
     [SerializeField]
     private CanvasGroup canvas;
+
     private void Awake()
     {
         canvas.alpha = 0;

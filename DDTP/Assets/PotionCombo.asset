@@ -28,7 +28,7 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 64ecbc7af5fdfc94d9e05ee88529a171, type: 2}
     m_basePointsMultiplier: 1
     m_additionalPoints: 20
-    m_weight: 4
+    m_weight: 3
   - m_ingredients: 000000000100000002000000
     comboImage: {fileID: 21300000, guid: 1c22dc63cebac1a42b664ccfb2436940, type: 3}
     sliderImage: {fileID: 21300000, guid: d0d64a9bb421e4948a8f4d359ec3f526, type: 3}
@@ -36,4 +36,4 @@ MonoBehaviour:
     material: {fileID: 2100000, guid: 64ecbc7af5fdfc94d9e05ee88529a171, type: 2}
     m_basePointsMultiplier: 2
     m_additionalPoints: 50
-    m_weight: 2
+    m_weight: 0
