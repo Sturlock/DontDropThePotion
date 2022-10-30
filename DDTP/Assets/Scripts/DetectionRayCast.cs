@@ -8,8 +8,8 @@ public class DetectionRayCast : MonoBehaviour
 
 
     Light _light;
-    [Header("Spotlight component is supported in object. Otherwise uses transform")]
-    [Header("detect setup")]
+    [Header("Spotlight component is supported in object.\n Otherwise uses transform")]
+    [Header("Detect Setup")]
     public LayerMask detectLayer;
     public LayerMask obsticleMaskLayer;
     public enum DetectFacing
